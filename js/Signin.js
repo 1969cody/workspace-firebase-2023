@@ -10,6 +10,14 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// For people need game rank
+/*
+firebase.firestore().collection("test").orderBy("item").get().then(querySnapshot).forEach((doc) => {
+querySnapshot.forEach((doc) => {
+  console.log('${doc.id} => ${doc.data().item}');
+})
+})*/
+
 // save the data
 $('#Login').submit(function (e) {
   e.preventDefault();
@@ -34,13 +42,14 @@ $('#Login').submit(function (e) {
         photoUrl = user.photoURL;
         emailVerified = user.emailVerified;
         console.log(name, email, emailVerified);
+        window.location.href = "Surveyresult.html";
       }
     })
     .catch((error) => {
 
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(errorMessage);
+      console.log(errorMessage); 
     });
 });
 
@@ -51,7 +60,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 firebase.auth()
   .signInWithPopup(provider)
   .then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
+    /* @type {firebase.auth.OAuthCredential} */
     var credential = result.credential;
 
     // This gives you a Google Access Token. You can use it to access the Google API.
